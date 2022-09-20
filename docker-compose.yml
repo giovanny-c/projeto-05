@@ -1,29 +1,19 @@
 
-version: '1'
+version: '3.8'
 
 services:
-    app: 
-        build: .
-        entrypoint: .docker/entrypoint.sh
-        container_name: api_vendas-app
-        ports: 
-            - '3333:3333'
-        volumes:
-            - .:/home/node/app
-        depends_on:
-            - db
-            - redis
         
     db: 
-        build: .docker/postgres
         container_name: api_vendas-db
+        image: postgres
         restart: always
         tty: true
         ports:
-            - '5432:5432'
+            - 5432:5432
         volumes:
-            - .docker/dbdata:/var/lib/postgesql/data
+            - pgdata:/data/postgresql
         environment:
+            - POSTGRES_USER=root
             - POSTGRES_PASSWORD=docker
             - POSTGRES_DB=api_vendas
     
@@ -32,15 +22,22 @@ services:
         container_name: api_vendas-redis
         environment:
             - ALLOW_EMPTY_PASSWORD=yes
-
-    pgadmin:
-        image: dpage/pgadmin4
-        container_name: api_vendas-pgadmin
-        tty: true
-        environment: 
-            - PGADMIN_DEFAULT_EMAIL=admin@admin.com
-            - PGADMIN_DEFAULT_PASSWORD=admin
-        ports:
-            - '8000:80'
+    
+    app: 
+        build: .
+        container_name: api_vendas-app
+        restart: always
+        ports: 
+            - 3333:3333
+        volumes:
+            - .:/usr/app
+        links: 
+            - db
+            - redis
         depends_on:
             - db
+            - redis
+
+volumes:
+  pgdata:
+    driver: local
