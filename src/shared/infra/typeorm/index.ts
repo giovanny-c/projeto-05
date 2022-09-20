@@ -7,6 +7,6 @@ export const dataSource: DataSource = new DataSource({
     username: "root", //api_vendas
     password: "docker",
     database: "api_vendas",
-    entities: ["src/modules/**/entities/*.ts"],
+    entities: ["src/modules/**/typeorm/entities/*.ts"],
     migrations: ["src/shared/infra/typeorm/migrations/*.ts"],
 })

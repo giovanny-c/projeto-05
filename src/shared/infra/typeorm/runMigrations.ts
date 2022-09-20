@@ -10,7 +10,7 @@ export const dataSourceORM: DataSource = new DataSource({
     database: "api_vendas",
     // migrationsRun: true,
     // logging: true,
-    entities: ["src/modules/**/entities/*.ts"],
+    entities: ["src/modules/**/typeorm/entities/*.ts"],
     migrations: ["src/shared/infra/typeorm/migrations/*.ts"],
 })
 
