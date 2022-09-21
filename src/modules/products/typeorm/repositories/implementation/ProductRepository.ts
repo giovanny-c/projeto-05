@@ -37,6 +37,10 @@ class ProductRepository implements IProductRepository {
         return product
     }
 
+    async findProducts(): Promise<Product[]> {
+        return await this.repository.find()
+    }
+
     async delete(): Promise<void> {
         throw new Error("Method not implemented.")
     }
