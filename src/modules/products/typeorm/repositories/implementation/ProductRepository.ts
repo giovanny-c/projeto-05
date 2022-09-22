@@ -11,8 +11,9 @@ class ProductRepository implements IProductRepository {
         this.repository = dataSource.getRepository(Product)
     }
 
-    async save({ name, price, quantity }: ISaveProduct): Promise<Product> {
+    async save({ id, name, price, quantity }: ISaveProduct): Promise<Product> {
         const product = await this.repository.create({
+            id,
             name,
             price,
             quantity,
@@ -41,8 +42,8 @@ class ProductRepository implements IProductRepository {
         return await this.repository.find()
     }
 
-    async delete(): Promise<void> {
-        throw new Error("Method not implemented.")
+    async delete(id: string): Promise<void> {
+        await this.repository.delete(id)
     }
 }
 

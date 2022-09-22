@@ -6,7 +6,7 @@ interface IProductRepository {
     findById(id: string): Promise<Product>
     findByName(name: string): Promise<Product>
     findProducts(): Promise<Product[]>
-    delete(): Promise<void>
+    delete(id: string): Promise<void>
 }
 
 export { IProductRepository }
