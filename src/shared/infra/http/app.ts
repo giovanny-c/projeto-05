@@ -2,7 +2,7 @@ import express from "express"
 import cors from "cors"
 import routes from "./routes"
 import { errors as celebrateErrors } from "celebrate"
-import { errorHandler } from "shared/erros/errorHandler"
+import { errorHandler } from "shared/errors/ErrorHandler"
 
 const app = express()
 
