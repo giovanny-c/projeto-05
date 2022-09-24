@@ -1,5 +1,5 @@
 import ISaveProduct from "modules/products/dtos/ISaveProductDTO"
-import { dataSource } from "shared/infra/typeorm"
+import { dataSource } from "@shared/infra/typeorm"
 import { Repository } from "typeorm"
 import { Product } from "../../entities/Product"
 import { IProductRepository } from "../IProductsRepository"

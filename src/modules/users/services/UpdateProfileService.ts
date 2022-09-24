@@ -7,8 +7,8 @@ interface IRequest {
     id: string
     name: string
     email: string
-    old_password: string
-    new_password: string
+    old_password?: string
+    new_password?: string
 }
 
 class UpdateProfileService {
@@ -70,6 +70,8 @@ class UpdateProfileService {
                     400,
                 )
             }
+
+            user.password = await hash(new_password, 8)
         }
 
         if (!name || name === "" || !name.match(/^(?!.*[^a-zA-Z0-9 ._!@*"'$`´^~ªº°-]).{1,40}$/)) {
@@ -78,7 +80,6 @@ class UpdateProfileService {
             throw new AppError("Invalid user name", 40)
         }
 
-        user.password = await hash(new_password, 8)
         user.name = name
         //user.email = email // só quando tiver a rota de confirmaçao
 

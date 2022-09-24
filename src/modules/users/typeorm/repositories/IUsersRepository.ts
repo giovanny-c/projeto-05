@@ -1,4 +1,4 @@
-import ISaveUser from "modules/users/dtos/ISaveUserDTO"
+import ISaveUser from "@modules/users/dtos/ISaveUserDTO"
 import User from "../entities/User"
 
 export default interface IUsersRepository {
