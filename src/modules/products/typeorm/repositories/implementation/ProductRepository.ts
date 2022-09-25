@@ -13,7 +13,7 @@ class ProductRepository implements IProductRepository {
     }
 
     async save({ id, name, price, quantity }: ISaveProduct): Promise<Product> {
-        const product = await this.repository.create({
+        const product = this.repository.create({
             id,
             name,
             price,
@@ -21,6 +21,10 @@ class ProductRepository implements IProductRepository {
         })
 
         return await this.repository.save(product)
+    }
+
+    async saveMany(products: ISaveProduct[]): Promise<Product[]> {
+        return await this.repository.save(products)
     }
 
     async findById(id: string): Promise<Product> {

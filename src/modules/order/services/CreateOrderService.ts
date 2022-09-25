@@ -85,7 +85,7 @@ class SaveOrderService {
         //e poe num array
 
         //att os produtos
-        await productsRepository.save(updatedProductQuantity)
+        await productsRepository.saveMany(updatedProductQuantity)
 
         return order
     }

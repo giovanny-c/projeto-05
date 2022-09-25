@@ -34,8 +34,14 @@ class OrderRepository implements IOrderRepository {
     async find(): Promise<Order[]> {
         throw new Error("Method not implemented.")
     }
-    async findByCustomerId(): Promise<Order> {
-        throw new Error("Method not implemented.")
+    async findByCustomerId(customer_id: string): Promise<Order[]> {
+        return await this.repository.find({
+            relations: {
+                customer: true,
+                order_products: true,
+            },
+            where: { customer_id },
+        })
     }
 }
 

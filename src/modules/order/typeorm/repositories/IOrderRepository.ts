@@ -5,5 +5,5 @@ export default interface IOrderRepository {
     save(data: ISaveOrder): Promise<Order>
     find(): Promise<Order[]>
     findById(id: string): Promise<Order>
-    findByCustomerId(): Promise<Order>
+    findByCustomerId(customer_id: string): Promise<Order[]>
 }
