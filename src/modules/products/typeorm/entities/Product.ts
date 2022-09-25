@@ -1,10 +1,5 @@
-import {
-    Column,
-    CreateDateColumn,
-    Entity,
-    PrimaryColumn,
-    UpdateDateColumn,
-} from "typeorm"
+import OrdersProducts from "@modules/order/typeorm/entities/OrdersProducts"
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryColumn, UpdateDateColumn } from "typeorm"
 import { v4 as uuidV4 } from "uuid"
 
 @Entity("products")
@@ -26,6 +21,9 @@ class Product {
 
     @UpdateDateColumn()
     updated_at: Date
+
+    @OneToMany(() => OrdersProducts, order_products => order_products.product)
+    order_products: OrdersProducts[]
 
     constructor() {
         if (!this.id) {

@@ -1,4 +1,4 @@
-import ISaveCustomerDTO from "@modules/costumers/dtos/ISaveCustomerDTO"
+import ISaveCustomerDTO from "@modules/customer/dtos/ISaveCustomerDTO"
 import { dataSource } from "@shared/infra/typeorm"
 import { Repository } from "typeorm"
 import Customer from "../../entities/Customer"

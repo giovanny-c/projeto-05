@@ -1,8 +1,9 @@
-import ISaveProduct from "modules/products/dtos/ISaveProductDTO"
+import ISaveProduct from "@modules/products/dtos/ISaveProductDTO"
 import { dataSource } from "@shared/infra/typeorm"
-import { Repository } from "typeorm"
+import { In, Repository } from "typeorm"
 import { Product } from "../../entities/Product"
 import { IProductRepository } from "../IProductsRepository"
+import IFindProducts from "@modules/products/dtos/IFindProducts"
 
 class ProductRepository implements IProductRepository {
     private repository: Repository<Product>
@@ -28,6 +29,13 @@ class ProductRepository implements IProductRepository {
         })) as Product
 
         return product
+    }
+
+    async findAllByIds(products: IFindProducts[]): Promise<Product[]> {
+        const productsIds = products.map(product => product.id)
+
+        return await this.repository.find({ where: { id: In(productsIds) } })
+        //acha todos os produtos com os ids passados
     }
 
     async findByName(name: string): Promise<Product> {

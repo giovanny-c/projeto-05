@@ -1,4 +1,4 @@
-import ISaveCustomer from "@modules/costumers/dtos/ISaveCustomerDTO"
+import ISaveCustomer from "@modules/customer/dtos/ISaveCustomerDTO"
 import Customer from "../entities/Customer"
 
 export default interface ICustomerRepository {
