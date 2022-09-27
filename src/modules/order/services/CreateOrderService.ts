@@ -10,13 +10,13 @@ interface IProductforOrder {
 }
 
 interface IRequest {
-    id?: string
+    order_id?: string
     customer_id: string
     products: IProductforOrder[]
 }
 
 class SaveOrderService {
-    async execute({ id, customer_id, products }: IRequest): Promise<Order> {
+    async execute({ order_id, customer_id, products }: IRequest): Promise<Order> {
         const ordersRepository = new OrderRepository()
         const usersRepository = new UsersRepository()
         const productsRepository = new ProductRepository()
@@ -66,7 +66,7 @@ class SaveOrderService {
         }))
 
         const order = await ordersRepository.save({
-            id,
+            id: order_id, //se existir
             customer: customerExists,
             products: serializedProducts,
         })
@@ -78,7 +78,7 @@ class SaveOrderService {
 
         const updatedProductQuantity = order_products.map(product => ({
             id: product.product_id,
-            quantity: foundProducts.filter(p => p.id === product.id)[0].quantity - product.quantity,
+            quantity: foundProducts.filter(p => p.id === product.product_id)[0].quantity - product.quantity,
         }))
         //pega o id desses produtos
         //e a quantidade atual deles - (menos) a quantidade que foi pedida na order

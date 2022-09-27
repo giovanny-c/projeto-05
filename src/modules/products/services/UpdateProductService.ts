@@ -1,3 +1,4 @@
+import RedisCache from "@shared/cache/RedisCache"
 import AppError from "@shared/errors/AppError"
 import { Product } from "../typeorm/entities/Product"
 import { ProductRepository } from "../typeorm/repositories/implementation/ProductRepository"
@@ -12,19 +13,20 @@ class UpdateProductService {
     async execute({ id, name, price, quantity }: IRequest): Promise<Product> {
         const productsRepository = new ProductRepository()
 
+        const redisCache = new RedisCache()
         const product = await productsRepository.findById(id)
 
         if (!product) {
             throw new AppError("Product not found", 400)
         }
 
-        const productExists = await productsRepository.findByName(
-            name as string,
-        )
+        const productExists = await productsRepository.findByName(name as string)
 
         if (productExists && name !== product.name) {
             throw new AppError("There is already a product with this name", 400)
         }
+
+        await redisCache.invalidate("api-vendas-PRODUCTS_LIST")
 
         return await productsRepository.save({ name, price, quantity, id })
     }

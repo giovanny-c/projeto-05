@@ -50,8 +50,11 @@ class ProductRepository implements IProductRepository {
         return product
     }
 
-    async findProducts(): Promise<Product[]> {
-        return await this.repository.find()
+    async findProducts(skip = 0, take = 10): Promise<Product[]> {
+        return await this.repository.find({
+            skip,
+            take,
+        })
     }
 
     async delete(id: string): Promise<void> {
